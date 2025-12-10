@@ -11,28 +11,20 @@ Model Python, scikit-learn ve statsmodels kütüphaneleri ile eğitilmiş, Flask
 
 ---
 
-## 📂 Proje Dosya Yapısı
+## 📁 Proje Dosya Yapısı
 
 Proje3_ML_Flask/
-│
 ├── Data/
-│ └── car_price.csv
+│   └── car_price.csv
 │
 ├── templates/
-│ └── index.html
-│
-├── static/
-│ └── style.css (Varsa)
-│
-├── screenshots/
-│ ├── form_screen.png
-│ └── result_screen.png
+│   └── index.html
+│  
 │
 ├── app.py
 ├── model.pkl
 ├── Proje3.ipynb
 └── README.md
-
 
 ---
 
