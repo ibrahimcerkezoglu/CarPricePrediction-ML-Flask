@@ -2,9 +2,9 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Araba Fiyat Tahmini</title>
+    <title>Araç Fiyat Tahmini</title>
 
-    <!-- Bootstrap CDN (ekstra CSS yazmadan düzgün görünmesi için) -->
+    <!-- Bootstrap CDN -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -50,16 +50,21 @@
 <body>
 <div class="page-wrapper">
     <div class="card card-custom">
+
+        <!-- BAŞLIK -->
         <div class="header-bar">
-            <h1>Car Price Prediction – Çoklu Doğrusal Regresyon</h1>
+            <h1>Araç Fiyat Tahmini – Çoklu Doğrusal Regresyon</h1>
         </div>
 
         <div class="card-body p-4">
+
+            <!-- AÇIKLAMA -->
             <p class="mb-4">
                 Aşağıdaki formda aracın teknik özelliklerini girerek
                 tahmini satış fiyatını hesaplayabilirsiniz.
             </p>
 
+            <!-- HATA MESAJI -->
             {% if error %}
             <div class="alert alert-danger">
                 {{ error }}
@@ -68,65 +73,97 @@
 
             <form method="POST">
                 <div class="row g-3">
+
                     <!-- SOL SÜTUN -->
                     <div class="col-md-6">
-                        <label class="form-label" for="wheelbase">Wheelbase</label>
-                        <input type="number" step="0.1" class="form-control" id="wheelbase" name="wheelbase"
+
+                        <label class="form-label" for="wheelbase">
+                            Aks Mesafesi (Wheelbase)
+                        </label>
+                        <input type="number" step="0.1" class="form-control"
+                               id="wheelbase" name="wheelbase"
                                value="{{ input_values['wheelbase'] }}" required>
 
-                        <label class="form-label mt-3" for="carlength">Carlength</label>
-                        <input type="number" step="0.1" class="form-control" id="carlength" name="carlength"
+                        <label class="form-label mt-3" for="carlength">
+                            Araç Uzunluğu (Car Length)
+                        </label>
+                        <input type="number" step="0.1" class="form-control"
+                               id="carlength" name="carlength"
                                value="{{ input_values['carlength'] }}" required>
 
-                        <label class="form-label mt-3" for="carwidth">Carwidth</label>
-                        <input type="number" step="0.1" class="form-control" id="carwidth" name="carwidth"
+                        <label class="form-label mt-3" for="carwidth">
+                            Araç Genişliği (Car Width)
+                        </label>
+                        <input type="number" step="0.1" class="form-control"
+                               id="carwidth" name="carwidth"
                                value="{{ input_values['carwidth'] }}" required>
 
-                        <label class="form-label mt-3" for="curbweight">Curbweight</label>
-                        <input type="number" step="1" class="form-control" id="curbweight" name="curbweight"
+                        <label class="form-label mt-3" for="curbweight">
+                            Araç Ağırlığı (Curb Weight)
+                        </label>
+                        <input type="number" step="1" class="form-control"
+                               id="curbweight" name="curbweight"
                                value="{{ input_values['curbweight'] }}" required>
 
-                        <label class="form-label mt-3" for="enginesize">Enginesize</label>
-                        <input type="number" step="1" class="form-control" id="enginesize" name="enginesize"
+                        <label class="form-label mt-3" for="enginesize">
+                            Motor Hacmi (Engine Size)
+                        </label>
+                        <input type="number" step="1" class="form-control"
+                               id="enginesize" name="enginesize"
                                value="{{ input_values['enginesize'] }}" required>
                     </div>
 
                     <!-- SAĞ SÜTUN -->
                     <div class="col-md-6">
-                        <label class="form-label" for="horsepower">Horsepower</label>
-                        <input type="number" step="1" class="form-control" id="horsepower" name="horsepower"
+
+                        <label class="form-label" for="horsepower">
+                            Beygir Gücü (Horsepower)
+                        </label>
+                        <input type="number" step="1" class="form-control"
+                               id="horsepower" name="horsepower"
                                value="{{ input_values['horsepower'] }}" required>
 
-                        <label class="form-label mt-3" for="citympg">City MPG</label>
-                        <input type="number" step="1" class="form-control" id="citympg" name="citympg"
+                        <label class="form-label mt-3" for="citympg">
+                            Şehir İçi Yakıt Tüketimi (City MPG)
+                        </label>
+                        <input type="number" step="1" class="form-control"
+                               id="citympg" name="citympg"
                                value="{{ input_values['citympg'] }}" required>
 
-                        <label class="form-label mt-3" for="highwaympg">Highway MPG</label>
-                        <input type="number" step="1" class="form-control" id="highwaympg" name="highwaympg"
+                        <label class="form-label mt-3" for="highwaympg">
+                            Şehir Dışı Yakıt Tüketimi (Highway MPG)
+                        </label>
+                        <input type="number" step="1" class="form-control"
+                               id="highwaympg" name="highwaympg"
                                value="{{ input_values['highwaympg'] }}" required>
 
-                        <label class="form-label mt-3" for="carbody">Carbody</label>
+                        <label class="form-label mt-3" for="carbody">
+                            Kasa Tipi
+                        </label>
                         <select class="form-select" id="carbody" name="carbody" required>
                             {% set cb = input_values['carbody'] %}
                             <option value="">Seçiniz...</option>
-                            <option value="convertible" {% if cb == 'convertible' %}selected{% endif %}>convertible</option>
-                            <option value="hatchback" {% if cb == 'hatchback' %}selected{% endif %}>hatchback</option>
-                            <option value="sedan" {% if cb == 'sedan' %}selected{% endif %}>sedan</option>
-                            <option value="wagon" {% if cb == 'wagon' %}selected{% endif %}>wagon</option>
-                            <option value="hardtop" {% if cb == 'hardtop' %}selected{% endif %}>hardtop</option>
+                            <option value="convertible" {% if cb == 'convertible' %}selected{% endif %}>Cabrio</option>
+                            <option value="hatchback" {% if cb == 'hatchback' %}selected{% endif %}>Hatchback</option>
+                            <option value="sedan" {% if cb == 'sedan' %}selected{% endif %}>Sedan</option>
+                            <option value="wagon" {% if cb == 'wagon' %}selected{% endif %}>Station Wagon</option>
+                            <option value="hardtop" {% if cb == 'hardtop' %}selected{% endif %}>Hardtop</option>
                         </select>
 
-                        <label class="form-label mt-3" for="drivewheel">Drivewheel</label>
+                        <label class="form-label mt-3" for="drivewheel">
+                            Çekiş Tipi
+                        </label>
                         <select class="form-select" id="drivewheel" name="drivewheel" required>
                             {% set dw = input_values['drivewheel'] %}
                             <option value="">Seçiniz...</option>
-                            <option value="fwd" {% if dw == 'fwd' %}selected{% endif %}>fwd</option>
-                            <option value="rwd" {% if dw == 'rwd' %}selected{% endif %}>rwd</option>
-                            <option value="4wd" {% if dw == '4wd' %}selected{% endif %}>4wd</option>
+                            <option value="fwd" {% if dw == 'fwd' %}selected{% endif %}>Önden Çekiş</option>
+                            <option value="rwd" {% if dw == 'rwd' %}selected{% endif %}>Arkadan İtiş</option>
+                            <option value="4wd" {% if dw == '4wd' %}selected{% endif %}>4x4</option>
                         </select>
                     </div>
                 </div>
 
+                <!-- BUTON & SONUÇ -->
                 <div class="mt-4 d-flex justify-content-between align-items-center">
                     <button type="submit" class="btn btn-success px-4">
                         Fiyatı Tahmin Et
@@ -139,9 +176,9 @@
                     {% endif %}
                 </div>
             </form>
+
         </div>
     </div>
 </div>
-
 </body>
 </html>
